@@ -57,7 +57,7 @@ class AbstractShape(Element):
         return self.attr("clip-path")[5:-1]
 
     def initDraw(self):
-        self.canvasContext.write("\n// #%s" % self.attr("id"))
+        self.canvasContext.write("\n\t// #%s" % self.attr("id"))
         if self.hasTransform() or self.hasClip():
             self.canvasContext.save()
         

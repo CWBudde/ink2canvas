@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 '''
 
 import sys
+sys.path.append('/usr/share/inkscape/extensions')
 import inkex
 from canvas import Canvas
 from Ink2CanvasCore import Ink2CanvasCore
@@ -26,11 +27,15 @@ from Ink2CanvasCore import Ink2CanvasCore
 class Ink2Canvas(inkex.Effect):
     def __init__(self):
         inkex.Effect.__init__(self)
+        self.OptionParser.add_option("-p", "--precision",
+                        action="store", type="int", 
+                        dest="precision", default=2,
+                        help="Number of significant digits after decimal point")
         self.core = Ink2CanvasCore(inkex, self)
 
 
     def effect(self):
-        svgRoot = self.document.getroot()
+        svgRoot = self.document.getroot()        
         
         tmpWidth = svgRoot.get("width")
         if tmpWidth == None:        
@@ -43,8 +48,8 @@ class Ink2Canvas(inkex.Effect):
             height = self.unittouu("600")
         else:
             height = self.unittouu(tmpHeight)
-            
-        self.core.canvas = Canvas(width, height)
+        
+        self.core.canvas = Canvas(width, height, int(self.options.precision))
         self.core.createTree(svgRoot)
         for drawable in self.core.root.getDrawable():
             drawable.runDraw()
@@ -57,4 +62,3 @@ class Ink2Canvas(inkex.Effect):
 if __name__ == "__main__":
     i2c = Ink2Canvas()
     i2c.affect()
-

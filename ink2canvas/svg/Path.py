@@ -20,6 +20,12 @@ class Path(AbstractShape):
         self.canvasContext.bezierCurveTo(x1, y1, x2, y2, x, y)
         self.currentPosition = x, y
 
+    def pathQuadraticCurveTo(self, data):
+        x1, y1 = data[0], data[1]
+        x, y = data[2], data[3]
+        self.canvasContext.quadraticCurveTo(x1, y1, x, y)
+        self.currentPosition = x, y
+
     def pathArcTo(self, data):
         #http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
         # code adapted from http://code.google.com/p/canvg/
@@ -106,6 +112,7 @@ class Path(AbstractShape):
         pathCommand = {"M": self.pathMoveTo,
                        "L": self.pathLineTo,
                        "C": self.pathCurveTo,
+                       "Q": self.pathQuadraticCurveTo,
                        "A": self.pathArcTo}
         for pt in path:
             comm, data = pt
