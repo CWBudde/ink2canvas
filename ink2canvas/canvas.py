@@ -73,14 +73,15 @@ class Canvas:
 
     def createLinearGradient(self, href, x1, y1, x2, y2):
         data = (href, self.f2rs(x1), self.f2rs(y1), self.f2rs(x2), self.f2rs(y2))
-        self.write("var %s = ctx.createLinearGradient(%s,%s,%s,%s);" % data)
+        self.write("var %s = ctx.createLinearGradient(%s, %s, %s, %s);" % data)
 
     def createRadialGradient(self, href, cx1, cy1, rx, cx2, cy2, ry):
         data = (href, self.f2rs(cx1), self.f2rs(cy1), self.f2rs(rx), f2rs(cx2), self.f2rs(cy2), self.f2rs(ry))
-        self.write("var %s = ctx.createRadialGradient(%s,%s,%s,%s,%s,%s);" % data)
+        self.write("var %s = ctx.createRadialGradient(%s, %s, %s, %s, %s, %s);" % data)
 
     def addColorStop(self, href, pos, color):
-        self.write("%s.addColorStop(%self.f2rs(, %s);" % (href, self.f2rs(pos), color))
+        data = (href, self.f2rs(pos), color) 
+        self.write("%s.addColorStop(%s, %s);" % data)
 
     def getColor(self, rgb, a):
         r, g, b = simplestyle.parseColor(rgb)
