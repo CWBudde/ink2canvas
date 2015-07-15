@@ -80,7 +80,7 @@ class Canvas:
         self.write("var %s = ctx.createRadialGradient(%s, %s, %s, %s, %s, %s);" % data)
 
     def addColorStop(self, href, pos, color):
-        data = (href, self.f2rs(pos), color) 
+        data = (href, self.f2rs(pos), color)
         self.write("%s.addColorStop(%s, %s);" % data)
 
     def getColor(self, rgb, a):
@@ -89,7 +89,7 @@ class Canvas:
         if a < 1:
             return "'rgba(%d, %d, %d, %s)'" % (r, g, b, self.f2rs(a))
         else:
-            return "'#%x%x%x'" % (r, g, b)
+            return "'#%02x%02x%02x'" % (r, g, b)
 
     def setOpacity(self, value):
         data = self.f2rs(float(value))
